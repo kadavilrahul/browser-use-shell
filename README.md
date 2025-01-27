@@ -13,7 +13,7 @@ Tested on:
 At least one API key required:
 - GROQ (Mixtral) - https://console.groq.com
 - Anthropic Claude - https://console.anthropic.com
-- Google Gemini - https://makersuite.google.com
+- Google Gemini - https://aistudio.google.com/
 - OpenRouter Mistral - https://openrouter.ai
 - DeepSeek - https://platform.deepseek.com
 
@@ -31,9 +31,9 @@ bash setup.sh
 
 ## User Inputs During Setup
 1. LLM API Keys (at least one required)
-   - Skip any key by pressing Enter
-   - Keys are saved in `.env` file
-   - Edit later using: `nano .env`
+    - Enter your API keys one by one
+    - Skip any key by pressing Enter
+
 
 2. Model Selection
    - Choose from available models
