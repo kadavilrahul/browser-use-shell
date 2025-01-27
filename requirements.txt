@@ -1,0 +1,9 @@
+browser-use
+langchain-openai
+langchain-anthropic
+langchain-google-genai
+python-dotenv
+google-cloud-aiplatform  # For Gemini
+anthropic  # For Claude
+openrouter  # For Mistral
+deepseek  # For DeepSeek models
