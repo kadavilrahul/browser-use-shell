@@ -20,7 +20,7 @@ At least one API key required:
 ## Installation
 Three commands to get started:
 ```bash
-git clone https://github.com/yourusername/browser-use-shell.git
+git clone https://github.com/kadavilrahul/browser-use-shell.git
 ```
 ```bash
 cd browser-use-shell
