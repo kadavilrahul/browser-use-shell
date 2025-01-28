@@ -34,3 +34,4 @@ wheels/
 # Browser Use specific
 ~/.browser_use/
 *.log
+agent_history.gif
