@@ -31,11 +31,16 @@ cd browser-use-shell
 bash setup.sh
 ```
 
+## Rerun the code after installation
+```bash
+source venv/bin/activate && python main.py
+```
+
+
 ## User Inputs During Setup
 1. LLM API Keys (at least one required)
     - Enter your API keys one by one
     - Skip any key by pressing Enter
-
 
 2. Model Selection
    - Choose from available models (numbered list)
@@ -93,3 +98,15 @@ python main.py
    - Check `.env` file format
    - Ensure no spaces around '=' sign
    - Verify key is active in provider dashboard
+
+4. Check and update server timezone, server language, and browser language on new server.
+   - Check available languages. Command `locale -a`
+   - Set timezone. Command `timedatectl set-timezone <timezone>`
+   - Set language. Command `locale-gen`
+   - Set browser language. Command `dpkg-reconfigure locales`  
+   - Reboot. Command `reboot`
+
+
+
+
+
