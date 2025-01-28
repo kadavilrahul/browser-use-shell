@@ -3,6 +3,7 @@
 A minimal browser automation setup that integrates AI models. Built using Windsurf Code editor. 
 It opens a chromium browser, navigates to a website, and performs tasks like login, search, and data extraction.
 This is simplified and modified version of the original code: https://github.com/browser-use
+You may also install Chrome remote desktop to test the automation on a remote Ubuntu machine using the repo https://github.com/kadavilrahul/chrome_remote_desktop
 
 ## System Requirements
 - Tested on OS: Ubuntu 24.04 LTS
