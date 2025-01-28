@@ -1,200 +1,203 @@
 from browser_use import Agent
 from browser_use.browser import browser
-from langchain_openai import ChatOpenAI
-from langchain_anthropic import ChatAnthropic
 from langchain_google_genai import ChatGoogleGenerativeAI
 import asyncio
-from config import LLMConfig
+from api_manager import APIManager
 
 Browser = browser.Browser
 BrowserContext = browser.BrowserContext
 
-MODEL_INFO = {
-    "mixtral": {
-        "provider": "Groq",
-        "pricing": "Free (Limited time)",
-        "display_name": "Mixtral-8x7B"
-    },
-    "claude-2.1": {
-        "provider": "Anthropic",
-        "pricing": "Paid",
-        "display_name": "Claude 2.1"
-    },
-    "gemini-flash": {
-        "provider": "Google",
-        "pricing": "Free",
-        "display_name": "Gemini 2.0 Flash"
-    },
-    "mistral-7b": {
-        "provider": "OpenRouter",
-        "pricing": "Paid",
-        "display_name": "Mistral 7B"
-    },
-    "deepseek": {
-        "provider": "DeepSeek",
-        "pricing": "Paid",
-        "display_name": "DeepSeek Chat"
-    }
-}
-
-def display_models():
-    """Display available models with serial numbers and provider information"""
-    models = LLMConfig.get_available_models()
-    print("\nAvailable Models:")
-    print("================")
-    
-    all_models = [*models["paid"].items(), *models["free"].items()]
-    count = 1
-    
-    for name, _ in all_models:
-        info = MODEL_INFO[name]
-        pricing_tag = "[Free]" if "Free" in info["pricing"] else "[Paid]"
-        print(f"{count}. {info['provider']}: {info['display_name']} {pricing_tag}")
-        count += 1
-    
-    return {i: name for i, name in enumerate([m[0] for m in all_models], 1)}
-
-def get_user_input():
-    """Get model selection and task from user"""
-    model_map = display_models()
-    
-    while True:
-        try:
-            choice = int(input("\nSelect a model (enter the number): "))
-            if choice in model_map:
-                selected_model = model_map[choice]
-                info = MODEL_INFO[selected_model]
-                print(f"\nSelected: {info['provider']} {info['display_name']}")
-                break
-            print(f"Please enter a number between 1 and {len(model_map)}")
-        except ValueError:
-            print("Please enter a valid number")
-    
-    task = input("\nEnter your task (e.g., 'Go to Google and search for Python'): ")
-    return selected_model, task
-
-async def run_browser_task(task: str, model_name: str, browser_instance=None, browser_context=None):
-    """Run a browser automation task with specified model"""
-    try:
-        info = MODEL_INFO[model_name]
-        print(f"\nRunning task with {info['provider']} {info['display_name']}...")
-        models = LLMConfig.get_available_models()
+async def test_api_key():
+    """Test if the Gemini API key works"""
+    api_key = APIManager.get_key("1")
+    if not api_key:
+        print("No API key found for Gemini")
+        return False
         
-        # Get model config
-        if model_name in models["paid"]:
-            model_config = models["paid"][model_name]
-        elif model_name in models["free"]:
-            model_config = models["free"][model_name]
+    try:
+        llm = ChatGoogleGenerativeAI(
+            model=APIManager.MODELS["1"]['model'],
+            google_api_key=api_key
+        )
+        await llm.ainvoke(APIManager.MODELS["1"]['test_prompt'])
+        return True
+    except Exception as e:
+        print(f"Error testing API key: {str(e)}")
+        return False
+
+async def prompt_for_api_key():
+    """Prompt user to add an API key"""
+    print("\nNo API key found. Please add your Google API key.")
+    api_key = input("Enter Gemini API key: ").strip()
+    
+    if not api_key:
+        print("❌ API key cannot be empty")
+        return False
+        
+    try:
+        # Test the API key first
+        llm = ChatGoogleGenerativeAI(
+            model=APIManager.MODELS["1"]['model'],
+            google_api_key=api_key
+        )
+        await llm.ainvoke("Test")
+        
+        # If test passes, save the key
+        if APIManager.add_key("1", api_key):
+            print("✅ API key added successfully")
+            return True
         else:
-            print(f"Model {model_name} not found in config")
-            return None, None, None
+            print("❌ Failed to save API key")
+            return False
+            
+    except Exception as e:
+        print(f"❌ Invalid API key: {str(e)}")
+        return False
 
-        # Create appropriate LLM instance
-        if "claude" in model_name:
-            llm = ChatAnthropic(
-                model=model_config["model"],
-                anthropic_api_key=model_config["api_key"]
-            )
-        elif "gemini" in model_name:
-            llm = ChatGoogleGenerativeAI(
-                model=model_config["model"],
-                google_api_key=model_config["api_key"]
-            )
-        elif "deepseek" in model_name:
-            llm = ChatOpenAI(
-                model=model_config["model"],
-                api_key=model_config["api_key"],
-                base_url=f"{model_config['base_url']}/v1"
-            )
-        elif "mistral" in model_name:
-            llm = ChatOpenAI(
-                model=model_config["model"],
-                api_key=model_config["api_key"],
-                base_url="https://openrouter.ai/api/v1"
-            )
-        else:  # Mixtral and others using OpenAI-compatible API
-            llm = ChatOpenAI(
-                model=model_config["model"],
-                api_key=model_config["api_key"],
-                base_url=model_config.get("endpoint", None)
-            )
+async def manage_api_keys():
+    """Manage API keys - add, remove, or list"""
+    while True:
+        print("\nAPI Key Management")
+        print("=================")
+        print("1. Add/Update API Key")
+        print("2. Remove API Key")
+        print("3. List Status")
+        print("4. Return to Main Menu")
+        
+        choice = input("\nSelect an option (1-4): ").strip()
+        
+        if choice == "1":
+            await prompt_for_api_key()
+        elif choice == "2":
+            if APIManager.remove_key("1"):
+                print("✅ API key removed")
+            else:
+                print("❌ No API key found")
+        elif choice == "3":
+            APIManager.list_models()
+            input("\nPress Enter to continue...")
+        elif choice == "4":
+            break
+        else:
+            print("Invalid choice")
 
-        # Create or reuse browser and context
+async def run_task(task: str, browser_instance=None, browser_context=None):
+    """Run a single browser task"""
+    try:
+        # Get API key
+        api_key = APIManager.get_key("1")
+        if not api_key:
+            print("No API key found for Gemini")
+            return browser_instance, browser_context
+            
+        # Create browser if needed
         if browser_instance is None:
             browser_instance = Browser()
-            browser_context = BrowserContext(browser=browser_instance)
-        
-        # Create agent with browser
+            
+        # Create context if needed    
+        if browser_context is None:
+            browser_context = await browser_instance.new_context()
+            
+        # Create LLM
+        llm = ChatGoogleGenerativeAI(
+            model=APIManager.MODELS["1"]['model'],
+            google_api_key=api_key
+        )
+            
+        # Create and run agent
         agent = Agent(
             task=task,
             llm=llm,
             browser=browser_instance,
             browser_context=browser_context
         )
+        await agent.run()
         
-        # Prevent auto-closing
-        agent._stopped = False
-        agent._paused = False
-        
-        result = await agent.run()
-        return result, browser_instance, browser_context
-
+        return browser_instance, browser_context
+            
     except Exception as e:
         print(f"Error: {str(e)}")
-        return None, browser_instance, browser_context
+        # Clean up on error
+        if browser_context:
+            await browser_context.close()
+        if browser_instance:
+            await browser_instance.close()
+        return None, None
 
-async def main_async():
-    print("\nBrowser Automation with AI Models")
-    print("================================")
-    
-    # Get initial user input for model
-    model_name, task = get_user_input()
+async def run_tasks():
+    """Run browser tasks"""
     browser_instance = None
     browser_context = None
     
+    try:
+        while True:
+            # Check for API key
+            if not APIManager.get_key("1"):
+                if not await prompt_for_api_key():
+                    return
+            
+            # First time menu
+            if browser_instance is None:
+                print("\nBrowser Automation Menu")
+                print("=====================")
+                print("1. Run Task")
+                print("2. Manage API Keys")
+                print("3. Exit")
+                
+                choice = input("\nSelect an option (1-3): ").strip()
+                
+                if choice == "2":
+                    await manage_api_keys()
+                    continue
+                elif choice == "3":
+                    break
+                elif choice != "1":
+                    print("Invalid choice")
+                    continue
+            
+            # Get task input
+            task = input("\nEnter your task (or 'exit' to quit): ").strip()
+            if not task:
+                print("Task cannot be empty")
+                continue
+            elif task.lower() == 'exit':
+                break
+                
+            # Run the task
+            browser_instance, browser_context = await run_task(
+                task, 
+                browser_instance, 
+                browser_context
+            )
+            
+            if browser_instance is None:
+                # Error occurred, show menu again
+                continue
+                
+    finally:
+        # Clean up browser resources
+        if browser_context:
+            await browser_context.close()
+        if browser_instance:
+            await browser_instance.close()
+
+async def main_async():
+    """Main async function"""
     while True:
-        # Run the task
-        result, browser_instance, browser_context = await run_browser_task(
-            task,
-            model_name,
-            browser_instance,
-            browser_context
-        )
-        
-        if result:
-            print(f"\n✅ Task completed successfully")
-        else:
-            print(f"\n❌ Task failed")
-        
-        # Ask user for next action
-        print("\nWhat would you like to do next?")
-        print("1. Enter a new task (same browser)")
-        print("2. Change model and enter new task (same browser)")
-        print("3. Start fresh with new browser")
-        print("4. Exit")
-        
-        choice = input("\nEnter your choice (1-4): ")
-        
-        if choice == "1":
-            task = input("\nEnter your new task: ")
-        elif choice == "2":
-            model_name, task = get_user_input()
-        elif choice == "3":
-            if browser_instance:
-                await browser_instance.close()
-            browser_instance = None
-            browser_context = None
-            model_name, task = get_user_input()
-        elif choice == "4":
-            if browser_instance:
-                input("\nPress Enter to close the browser and exit...")
-                await browser_instance.close()
-            print("\nGoodbye!")
+        try:
+            await run_tasks()
             break
-        else:
-            print("\nInvalid choice. Please try again.")
+        except KeyboardInterrupt:
+            print("\nExiting...")
+            break
+        except Exception as e:
+            print(f"\nError: {str(e)}")
+            cont = input("\nRetry? (y/n): ").lower().strip()
+            if cont != 'y':
+                break
 
 def main():
+    """Main entry point"""
     asyncio.run(main_async())
 
 if __name__ == "__main__":

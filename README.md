@@ -13,19 +13,15 @@ You may also install Chrome remote desktop to test the automation on a remote Ub
 
 ## Configured AI Models
 At least one API key required:
-- GROQ (Free API) - https://console.groq.com
-- Anthropic Claude - https://console.anthropic.com
 - Google Gemini (Free API) - https://aistudio.google.com/
-- OpenRouter Mistral - https://openrouter.ai
-- DeepSeek - https://platform.deepseek.com
 
 ## Installation
 Run these commands on Linux terminal to get started:
 ```bash
-git clone https://github.com/kadavilrahul/browser-use-shell.git
+git clone https://github.com/kadavilrahul/browser-use-shell-gemini.git
 ```
 ```bash
-cd browser-use-shell
+cd browser-use-shell-gemini
 ```
 ```bash
 bash setup.sh
@@ -36,18 +32,12 @@ bash setup.sh
 source venv/bin/activate && python main.py
 ```
 
-
 ## User Inputs During Setup
-1. LLM API Keys (at least one required)
-    - Enter your API keys one by one
-    - Skip any key by pressing Enter
+1. LLM API Keys (required)
+    - Enter your Gemini API key when prompted
+    - Get it from https://aistudio.google.com/
 
-2. Model Selection
-   - Choose from available models (numbered list)
-   - Free models are marked with [Free]
-   - Recommended for beginners: Google Gemini or GROQ
-
-3. Task Input
+2. Task Input
    - Enter your automation task and follow on-screen instructions
    - Example tasks:
      ```
@@ -98,15 +88,3 @@ python main.py
    - Check `.env` file format
    - Ensure no spaces around '=' sign
    - Verify key is active in provider dashboard
-
-4. Check and update server timezone, server language, and browser language on new server.
-   - Check available languages. Command `locale -a`
-   - Set timezone. Command `timedatectl set-timezone <timezone>`
-   - Set language. Command `locale-gen`
-   - Set browser language. Command `dpkg-reconfigure locales`  
-   - Reboot. Command `reboot`
-
-
-
-
-

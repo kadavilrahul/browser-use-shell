@@ -1,9 +1,4 @@
-browser-use
-langchain-openai
-langchain-anthropic
-langchain-google-genai
-python-dotenv
+browser-use>=0.1.0
+langchain-google-genai>=0.0.5
+python-dotenv>=1.0.0
 google-cloud-aiplatform  # For Gemini
-anthropic  # For Claude
-openrouter  # For Mistral
-deepseek  # For DeepSeek models

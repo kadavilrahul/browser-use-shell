@@ -44,7 +44,7 @@ python3 -m playwright --version
 echo "Installed packages:"
 python3 -m pip list
 
-# 7. Setup environment file and collect API keys
+# 7. Setup environment file and collect API key
 echo "Setting up environment file..."
 
 # Create .env file
@@ -68,22 +68,18 @@ get_api_key() {
     echo "$key_name=$api_key" >> .env
 }
 
-# Collect API keys
-echo "Please enter your API keys. Press Enter to skip any you don't have."
+# Collect API key
+echo "Please enter your API key."
 
-get_api_key "GROQ_API_KEY" "Groq API Key (for Mixtral model)"
-get_api_key "ANTHROPIC_API_KEY" "Anthropic API Key (for Claude model)"
-get_api_key "GOOGLE_API_KEY" "Google API Key (for Gemini model)"
-get_api_key "OPENROUTER_API_KEY" "OpenRouter API Key (for Mistral model)"
-get_api_key "DEEPSEEK_API_KEY" "DeepSeek API Key"
+get_api_key "GOOGLE_API_KEY" "Google API Key (for Gemini model) - Get it from https://aistudio.google.com/"
 
 echo ""
-echo "API keys have been saved to .env file"
-echo "You can edit them later using: nano .env"
+echo "API key has been saved to .env file"
+echo "You can edit it later using: nano .env"
 
-# 8. Run tests with API keys
+# 8. Run tests with API key
 echo ""
-echo "Running tests with provided API keys..."
+echo "Running tests with provided API key..."
 python3 test_models.py
 
 echo "Setup completed successfully!"
