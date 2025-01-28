@@ -1,9 +1,13 @@
 from browser_use import Agent
+from browser_use.browser import browser
 from langchain_openai import ChatOpenAI
 from langchain_anthropic import ChatAnthropic
 from langchain_google_genai import ChatGoogleGenerativeAI
 import asyncio
 from config import LLMConfig
+
+Browser = browser.Browser
+BrowserContext = browser.BrowserContext
 
 MODEL_INFO = {
     "mixtral": {
@@ -69,7 +73,7 @@ def get_user_input():
     task = input("\nEnter your task (e.g., 'Go to Google and search for Python'): ")
     return selected_model, task
 
-async def run_browser_task(task: str, model_name: str):
+async def run_browser_task(task: str, model_name: str, browser_instance=None, browser_context=None):
     """Run a browser automation task with specified model"""
     try:
         info = MODEL_INFO[model_name]
@@ -83,7 +87,7 @@ async def run_browser_task(task: str, model_name: str):
             model_config = models["free"][model_name]
         else:
             print(f"Model {model_name} not found in config")
-            return False
+            return None, None, None
 
         # Create appropriate LLM instance
         if "claude" in model_name:
@@ -115,28 +119,83 @@ async def run_browser_task(task: str, model_name: str):
                 base_url=model_config.get("endpoint", None)
             )
 
-        # Create and run agent
-        agent = Agent(task=task, llm=llm)
+        # Create or reuse browser and context
+        if browser_instance is None:
+            browser_instance = Browser()
+            browser_context = BrowserContext(browser=browser_instance)
+        
+        # Create agent with browser
+        agent = Agent(
+            task=task,
+            llm=llm,
+            browser=browser_instance,
+            browser_context=browser_context
+        )
+        
+        # Prevent auto-closing
+        agent._stopped = False
+        agent._paused = False
+        
         result = await agent.run()
-        return result
+        return result, browser_instance, browser_context
 
     except Exception as e:
         print(f"Error: {str(e)}")
-        return None
+        return None, browser_instance, browser_context
 
-def main():
+async def main_async():
     print("\nBrowser Automation with AI Models")
     print("================================")
     
-    # Get user input for model and task
+    # Get initial user input for model
     model_name, task = get_user_input()
+    browser_instance = None
+    browser_context = None
     
-    # Run the task
-    result = asyncio.run(run_browser_task(task, model_name))
-    if result:
-        print(f"\n✅ Task completed successfully")
-    else:
-        print(f"\n❌ Task failed")
+    while True:
+        # Run the task
+        result, browser_instance, browser_context = await run_browser_task(
+            task,
+            model_name,
+            browser_instance,
+            browser_context
+        )
+        
+        if result:
+            print(f"\n✅ Task completed successfully")
+        else:
+            print(f"\n❌ Task failed")
+        
+        # Ask user for next action
+        print("\nWhat would you like to do next?")
+        print("1. Enter a new task (same browser)")
+        print("2. Change model and enter new task (same browser)")
+        print("3. Start fresh with new browser")
+        print("4. Exit")
+        
+        choice = input("\nEnter your choice (1-4): ")
+        
+        if choice == "1":
+            task = input("\nEnter your new task: ")
+        elif choice == "2":
+            model_name, task = get_user_input()
+        elif choice == "3":
+            if browser_instance:
+                await browser_instance.close()
+            browser_instance = None
+            browser_context = None
+            model_name, task = get_user_input()
+        elif choice == "4":
+            if browser_instance:
+                input("\nPress Enter to close the browser and exit...")
+                await browser_instance.close()
+            print("\nGoodbye!")
+            break
+        else:
+            print("\nInvalid choice. Please try again.")
+
+def main():
+    asyncio.run(main_async())
 
 if __name__ == "__main__":
     main()
