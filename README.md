@@ -1,9 +1,16 @@
 # Browser Automation with AI Models
 
-A minimal browser automation setup that integrates AI models. Built using Windsurf Code editor. 
-It opens a chromium browser, navigates to a website, and performs tasks like login, search, and data extraction.
-This is simplified and modified version of the original code: https://github.com/browser-use
-You may also install Chrome remote desktop to test the automation on a remote Ubuntu machine using the repo https://github.com/kadavilrahul/chrome_remote_desktop
+- A minimal browser automation setup that integrates AI model
+- It takes user input and executes tasks on a Chromium browser
+- Built using Windsurf Code editor and Claude 3.5 Sonnet model
+- This is simplified and modified version of the original code: https://github.com/browser-use
+
+# Modifications and improvement done
+- The tool will be ready to use by running two commands on terminal
+- Made it user friendly by adding user inputs on terminal for all the tasks
+- Used only one LLM model for now to avoid API format errors
+- Keeps browser open after task completion unless exit is done
+- New tasks can be executed after current one is completed on already open brower
 
 ## System Requirements
 - Tested on OS: 
@@ -11,12 +18,15 @@ You may also install Chrome remote desktop to test the automation on a remote Ub
    -  Garuda Linux (Rolling)
 - Python: 3.12
 - Playwright: Latest
+- Desktop with GUI
 
-Note: This code may work well with other Linux distros also. Use any IDE with AI support to modify code as per your use.
+Note: 
+1. This code may work well with other Linux distros also. Use any IDE with AI support to modify code as per your use.
+2. If you are working on a remote headless machine then you will need a GUI and remote desktop connection to access browser. You can install Chrome remote desktop on a remote Ubuntu machine using this repo https://github.com/kadavilrahul/chrome_remote_desktop
 
 ## Configured AI Models
 At least one API key required:
-- Google Gemini (Free API) - https://aistudio.google.com/
+- Google Gemini (Free API) - https://aistudio.google.com/apikey
 - Configured Gemini model is "gemini-2.0-flash-exp"
 
 ## Installation
@@ -38,15 +48,17 @@ source venv/bin/activate && python main.py
 
 ## User Inputs During Setup
 1. LLM API Keys (required)
-    - Enter your Gemini API key when prompted
-    - Get it from https://aistudio.google.com/
+   - Enter your Gemini API key when prompted
+   - Get it from https://aistudio.google.com/apikey
 
 2. Task Input
    - Enter your automation task and follow on-screen instructions
    - Example tasks:
      ```
-     "Go to wordpress order section of xxxx.com, ID:xxxx Password:xxxx and search for latest orders"
-     "Login to GitHub with username:xxx password:xxx and check notifications"
+     Go to wordpress order section of xxxx.com, ID:xxxx Password:xxxx and search for latest orders
+     ```
+     ```
+     Login to GitHub with username:xxx password:xxx and check notifications
      ```
    - Task progress shown in terminal
    - Results saved as GIF in `agent_history.gif`
