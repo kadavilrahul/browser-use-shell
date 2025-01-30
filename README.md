@@ -6,14 +6,18 @@ This is simplified and modified version of the original code: https://github.com
 You may also install Chrome remote desktop to test the automation on a remote Ubuntu machine using the repo https://github.com/kadavilrahul/chrome_remote_desktop
 
 ## System Requirements
-- Tested on OS: Ubuntu 24.04 LTS
+- Tested on OS: 
+   -  Ubuntu 24.04 LTS
+   -  Garuda Linux (Rolling)
 - Python: 3.12
 - Playwright: Latest
-- This code may work well with other Linux distros also
+
+Note: This code may work well with other Linux distros also. Use any IDE with AI support to modify code as per your use.
 
 ## Configured AI Models
 At least one API key required:
 - Google Gemini (Free API) - https://aistudio.google.com/
+- Configured Gemini model is "gemini-2.0-flash-exp"
 
 ## Installation
 Run these commands on Linux terminal to get started:
