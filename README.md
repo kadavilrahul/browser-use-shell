@@ -13,16 +13,15 @@
 - New tasks can be executed after current one is completed on already open brower
 
 ## System Requirements
-- Tested on OS: 
-   -  Ubuntu 24.04 LTS
-   -  Garuda Linux (Rolling)
-- Python: 3.12
-- Playwright: Latest
-- Desktop with GUI
+- Linux system with GUI (GUI is needed only to access browser)
 
-Note: 
-1. This code may work well with other Linux distros also. Use any IDE with AI support to modify code as per your use.
-2. If you are working on a remote headless machine then you will need a GUI and remote desktop connection to access browser. You can install Chrome remote desktop on a remote Ubuntu machine using this repo https://github.com/kadavilrahul/chrome_remote_desktop
+## Tested on OS: 
+-  Ubuntu 24.04 LTS
+-  Garuda Linux (Rolling)
+
+## Note: 
+- This code may work well with other Linux distros also. Use any IDE with AI support to modify code as per your use.
+- If you are working on a remote headless machine then you will need a GUI and remote desktop connection to access browser. You can install Chrome remote desktop on a remote Ubuntu machine using this repo https://github.com/kadavilrahul/chrome_remote_desktop
 
 ## Configured AI Models
 At least one API key required:
