@@ -31,13 +31,7 @@ At least one API key required:
 ## Installation
 Run these commands on Linux terminal to get started:
 ```bash
-git clone https://github.com/kadavilrahul/browser-use-shell.git
-```
-```bash
-cd browser-use-shell
-```
-```bash
-bash main.sh
+git clone https://github.com/kadavilrahul/browser-use-shell.git && cd browser-use-shell && bash main.sh
 ```
 
 ## Rerun the code after installation
