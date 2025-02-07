@@ -1,4 +1,4 @@
-browser-use>=0.1.0
+browser-use>=0.1.36
 langchain-google-genai>=0.0.5
 python-dotenv>=1.0.0
 google-cloud-aiplatform  # For Gemini
