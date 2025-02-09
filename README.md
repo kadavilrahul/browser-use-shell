@@ -29,8 +29,8 @@ At least one API key required:
 - Google Gemini (Free API) - https://aistudio.google.com/apikey
 - Configured Gemini model is "gemini-2.0-flash-exp"
 
-## Installation for Linux 
-(Run these commands on Linux terminal to get started):
+## Installation for Linux: 
+(Run these commands on Linux terminal to get started)
 
  - Git clone and enter repository folder 
 ```bash
@@ -41,29 +41,18 @@ git clone https://github.com/kadavilrahul/browser-use-shell.git && cd browser-us
 ```bash
 source venv/bin/activate && python main.py
 ```
-## Installation for Windows and other systems 
-(Run these commands on Windows terminal (Powershell) or system terminal to get started:
+## Installation for Windows and other systems:
+(Run these commands on Windows terminal (Powershell) or system terminal to get started)
 
  - Git clone and enter repository folder
-```bash
-git clone https://github.com/kadavilrahul/browser-use-shell.git && cd browser-use-shell 
+```powershell
+git clone https://github.com/kadavilrahul/browser-use-shell.git; cd browser-use-shell; python -m venv venv; .\venv\Scripts\activate; pip install -r requirements.txt; python main.py
 ```
- - Set up Virtual Environment:
+ - Rerun the code after installation
+```powershell
+.\venv\Scripts\Activate; python main.py
 ```
-python -m venv venv
-```
-```
-.\venv\Scripts\activate
- ```
- - Install project dependencies:
-```
-pip install -r requirements.txt
-```
- - Run the code:
-```
-python main.py
-```   
-    
+
 ## User Inputs During Setup
 1. LLM API Keys (required)
    - Enter your Gemini API key when prompted
