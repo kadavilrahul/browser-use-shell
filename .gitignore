@@ -35,3 +35,11 @@ wheels/
 ~/.browser_use/
 *.log
 agent_history.gif
+
+# Ignore backups folder
+backups/
+
+# Ignore shell scripts, log files, and pid files
+*.sh
+*.log
+*.pid
