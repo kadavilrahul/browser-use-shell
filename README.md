@@ -30,7 +30,7 @@ At least one API key required:
 - Configured Gemini model is "gemini-2.0-flash-exp"
 
 ## Setup and Installation 
-#### Linux: 
+### Linux: 
 (Run these commands on Linux terminal to get started)
  - Enter desired folder location. Modify command with correct folder name
 ```bash
@@ -45,7 +45,7 @@ git clone https://github.com/kadavilrahul/browser-use-shell.git && cd browser-us
 ```bash
 source venv/bin/activate && python main.py
 ```
-#### Windows:
+### Windows:
 (Run these commands on Windows terminal (Powershell) or system terminal to get started)
  - Enter desired folder location. Modify command with correct folder name
 ```powershell
