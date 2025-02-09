@@ -34,7 +34,7 @@ At least one API key required:
  - Enter desired folder location. Modify command with correct folder name
 ```bash
 cd /path/to/your/folder
-```bash
+```
  - Git clone and enter repository folder 
 ```bash
 git clone https://github.com/kadavilrahul/browser-use-shell.git && cd browser-use-shell && bash main.sh
@@ -49,7 +49,7 @@ source venv/bin/activate && python main.py
  - Enter desired folder location. Modify command with correct folder name
 ```powershell
 cd Path\To\Your\Folder
-```bash
+```
  - Git clone and enter repository folder
 ```powershell
 git clone https://github.com/kadavilrahul/browser-use-shell.git; cd browser-use-shell; python -m venv venv; .\venv\Scripts\activate; pip install -r requirements.txt; python main.py
