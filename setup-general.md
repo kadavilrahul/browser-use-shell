@@ -1,6 +1,6 @@
 # Windows Installation Guide
 
-This guide provides step-by-step instructions for setting up the project on Windows and other machine. 
+This guide provides step-by-step instructions for setting up the project on Windows. 
 Follow these steps carefully to ensure proper installation.
 
 ## Prerequisites
@@ -52,6 +52,8 @@ Follow these steps carefully to ensure proper installation.
 4. Install Playwright and browsers:
    ```
    python -m playwright install
+   ```
+   ```
    python -m playwright install-deps
    ```
 
