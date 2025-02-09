@@ -41,7 +41,7 @@ git clone https://github.com/kadavilrahul/browser-use-shell.git && cd browser-us
 ```bash
 source venv/bin/activate && python main.py
 ```
-## Installation for Windows and other systems:
+## Installation for Windows:
 (Run these commands on Windows terminal (Powershell) or system terminal to get started)
 
  - Git clone and enter repository folder
