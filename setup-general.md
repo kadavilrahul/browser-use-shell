@@ -19,7 +19,7 @@ Follow these steps carefully to ensure proper installation.
    ```
 3. Clone the repository:
    ```
-   git clone https://github.com/your-repo/browser-use-shell.git
+   git clone https://github.com/kadavilrahul/browser-use-shell.git
    ```
 4. Navigate to the project directory:
    ```
