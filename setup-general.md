@@ -5,9 +5,8 @@ Follow these steps carefully to ensure proper installation.
 
 ## Prerequisites
 
-1. **Windows Version**: Windows 10 or later
-2. **Disk Space**: At least 500MB free space
-3. **Permissions**: Administrator access
+1. **Disk Space**: At least 500MB free space
+2. **Permissions**: Administrator access
 
 ## Installation Methods
 

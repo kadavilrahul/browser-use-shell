@@ -13,32 +13,53 @@
 - New tasks can be executed after current one is completed on already open brower
 
 ## System Requirements
-- Linux system with GUI (GUI is needed only to access browser)
+- A system with GUI (GUI is needed only to access browser)
 
 ## Tested on OS: 
 -  Ubuntu 24.04 LTS
 -  Garuda Linux (Rolling)
+-  Windows 10 Pro 64-bit
 
 ## Note: 
-- This code may work well with other Linux distros also. Use any IDE with AI support to modify code as per your use.
-- If you are working on a remote headless machine then you will need a GUI and remote desktop connection to access browser. You can install Chrome remote desktop on a remote Ubuntu machine using this repo https://github.com/kadavilrahul/chrome_remote_desktop
+- Use any IDE with AI support to modify code as per your use.
+- If you are working on a remote Linux headless machine then you will need a GUI and remote desktop connection to access browser. You can install Chrome remote desktop on a remote Ubuntu machine using this repo https://github.com/kadavilrahul/chrome_remote_desktop
 
 ## Configured AI Models
 At least one API key required:
 - Google Gemini (Free API) - https://aistudio.google.com/apikey
 - Configured Gemini model is "gemini-2.0-flash-exp"
 
-## Installation
-Run these commands on Linux terminal to get started:
+## Installation for Linux (Run these commands on Linux terminal to get started):
+ - Git clone and enter repository folder 
 ```bash
 git clone https://github.com/kadavilrahul/browser-use-shell.git && cd browser-use-shell && bash main.sh
 ```
 
-## Rerun the code after installation
+ - Rerun the code after installation
 ```bash
 source venv/bin/activate && python main.py
 ```
-
+## Installation for Windows and other systems (Run these commands on Windows terminal (Powershell) or system terminal to get started:
+ - Git clone and enter repository folder
+```bash
+git clone https://github.com/kadavilrahul/browser-use-shell.git && cd browser-use-shell 
+```
+ - Set up Virtual Environment:
+```
+python -m venv venv
+```
+```
+.\venv\Scripts\activate
+ ```
+ - Install project dependencies:
+```
+pip install -r requirements.txt
+```
+ - Run the code:
+```
+python main.py
+```   
+    
 ## User Inputs During Setup
 1. LLM API Keys (required)
    - Enter your Gemini API key when prompted
@@ -56,17 +77,11 @@ source venv/bin/activate && python main.py
    - Task progress shown in terminal
    - Results saved as GIF in `agent_history.gif`
 
-## Testing
-Run tests manually:
-```bash
-source venv/bin/activate
-python test_models.py
-```
-
 ## Manual Python Usage
 Start automation:
 ```bash
 source venv/bin/activate
+pip install -r requirements.txt
 python main.py
 ```
 
