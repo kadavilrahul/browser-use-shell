@@ -41,7 +41,7 @@ cd /path/to/your/folder
 git clone https://github.com/kadavilrahul/browser-use-shell.git && cd browser-use-shell && bash main.sh
 ```
 
- - Rerun the code after installation
+ - Run the code after installation to start using browser use shell
 ```bash
 source venv/bin/activate && python main.py
 ```
