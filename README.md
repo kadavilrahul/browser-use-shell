@@ -14,6 +14,7 @@
 
 #### System Requirements
 - A system with GUI (GUI is needed only to access browser)
+- Python
 
 #### Tested on OS: 
 -  Ubuntu 24.04 LTS
