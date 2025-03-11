@@ -61,7 +61,7 @@ git clone https://github.com/kadavilrahul/browser-use-shell.git; cd browser-use-
 .\venv\Scripts\Activate; python main.py
 ```
 
-If error comes
+If error comes:
 - Check if python is installed
 - Open PowerShell as Administrator and run below command to approve execution policy
   ```powershell
@@ -71,21 +71,25 @@ If error comes
   ```
   git clone https://github.com/kadavilrahul/browser-use-shell.git
   ```
+  ```
   cd browser-use-shell
   ```
+  
   ```
   python -m venv venv
   ```
+  
   ```
   .\venv\Scripts\activate
   ```
+  
   ```
   pip install -r requirements.txt
   ```
+  
   ```
   python main.py
   ```
-  
   
 #### User Inputs During Setup
 1. LLM API Keys (required)
